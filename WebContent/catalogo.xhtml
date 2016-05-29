@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+  
+<ui:composition template="template/template_initial.xhtml">
+    <ui:define name="nav_bar">
+        <ui:include src="template/top_bar.xhtml"/>
+    </ui:define>
+
+	<ui:define name="menu_bar">
+        <ui:include src="template/menu_bar.xhtml"/>
+    </ui:define>    
+
+<!-- begin -->    
+    <ui:define name="container">
+      	<div class="container-fluid">
+       		<div class="row">
+       		
+       		<h:form id="form">
+
+    <p:dataGrid var="grupo" value="#{catalogoView.lista}" columns="3" layout="grid"
+        rows="9" paginator="true" id="grupos"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+ 
+        <f:facet name="header">
+            Grupo de componentes  
+            - <p:commandLink title="Cadastrar Grupo" action="#{catalogoView.cadastroGrupo}">Cadastrar Grupo</p:commandLink>
+            - <p:commandLink title="Cadastrar Componente" action="#{cadastroComponenteView.cadastroComponente}">Cadastrar Componente</p:commandLink>
+        </f:facet>
+ 
+        <p:panel header="#{grupo.decricao}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+ 
+                <h:outputText value="#{grupo.decricao}" />
+ 
+                <p:commandLink update=":form:grupoDetail" oncomplete="PF('grupoDialog').show()" title="View Detail">
+                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                    <f:setPropertyActionListener value="#{grupo}" target="#{catalogoView.selected}" />
+                </p:commandLink>
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+ 
+    <p:dialog widgetVar="grupoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        
+        <f:facet name="header">
+            <h:outputText value="#{catalogoView.selected.decricao}" /> - <p:commandLink title="Cadastrar Componente" action="#{cadastroComponenteView.cadastroComponenteGrupoSel(catalogoView.selected.id)}">Cadastrar Componente</p:commandLink>
+        </f:facet>
+        
+        <p:outputPanel id="grupoDetail" style="text-align:center;">
+            <p:panelGrid  columns="1" rendered="#{not empty catalogoView.selected}" columnClasses="label,value">
+ 				<p:dataTable id="painelDetail" var="componente" value="#{catalogoView.listaComponentes}">
+
+ 					<p:column headerText="Nome">
+        				<h:outputText value="#{componente.descricao}" />
+    				</p:column>
+
+    				<p:column headerText="Quantidade">
+        				<h:outputText value="#{componente.quantidade}" />
+    				</p:column>
+    				
+    				<p:column headerText="Observações">
+        				<h:outputText value="#{componente.observacoes}" />
+    				</p:column>
+    				
+    				<p:column headerText="">
+    					<p:commandLink id="alterar" action="#{cadastroComponenteView.alterarComponente(componente.id)}">
+    						<h:outputText value="Alterar" />
+    					</p:commandLink>
+    				</p:column>
+    				
+    				<p:column headerText="">
+    					<p:commandLink id="excluir" action="#{catalogoView.excluirComponente(componente.id)}" update="painelDetail">
+        					<h:outputText value="Excluir" />
+        				</p:commandLink>
+    				</p:column>
+    				
+				</p:dataTable>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+			</div>
+		</div>	
+    </ui:define>    
+<!-- end -->
+    <ui:define name="title">        
+            Bem-vindo ao FargWeb        
+    </ui:define>
+</ui:composition>
+</html>

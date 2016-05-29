@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+  
+<ui:composition template="template/template_initial.xhtml">
+    <ui:define name="nav_bar">
+        <ui:include src="template/top_bar.xhtml"/>
+    </ui:define>
+
+	<ui:define name="menu_bar">
+        <ui:include src="template/menu_bar.xhtml"/>
+    </ui:define>    
+
+<!-- begin -->    
+<ui:define name="container">
+      	<div class="container-fluid">
+       		<div class="row">
+<h:form>
+			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+			<h:panelGrid columns="2" cellpadding="5">
+            	
+            		
+            		<h:outputLabel for="nomeComp" value="Nome do Componente:" />
+            		<p:inputText id="nomeComp" value="#{cadastroComponenteView.componente.descricao}" required="true" label="nomeComp" />
+            		
+            		<h:outputLabel for="qtdComp" value="Quantidade:" />
+            		<p:inputText id="qtdComp" value="#{cadastroComponenteView.componente.quantidade}" required="true" label="qtdComp" />
+
+            		<h:outputLabel for="listComp" value="Grupo:" />
+            		<p:selectOneListbox id="listComp" value="#{cadastroComponenteView.grupoSelecionado}">
+            			<f:selectItem itemValue="#{null}" itemLabel="--selecione--" />
+   						<f:selectItems value="#{cadastroComponenteView.listaGrupos}"/>
+            		</p:selectOneListbox>
+            		
+            		<h:outputLabel for="obsComp" value="Observações:" />
+            		<p:inputTextarea id="obsComp" value="#{cadastroComponenteView.componente.observacoes}" rows="6" cols="30" counter="display" maxlength="180" counterTemplate="{0} characters remaining." autoResize="false" label="obsComp" />
+    				<h:outputText />
+    				<h:outputText id="display" />
+            		<!-- <h:outputLabel for="prop1Nome" value="Nome Propriedade1:" />
+            		<p:inputText id="prop1Nome" value="#{cadastroComponenteView.propriedade1.nome}" required="false" label="prop1Nome" /> -->
+
+					<!-- <h:outputLabel for="prop1Label" value="Label Propriedade1:" />
+					<p:inputText id="prop1Label" value="#{cadastroComponenteView.propriedade1.label}" required="false" label="prop1Label" /> -->
+           		
+					<!-- <h:outputLabel for="prop1Valor" value="Valor Propriedade1:" />
+					<p:inputText id="prop1Valor" value="#{cadastroComponenteView.propriedade1.valor}" required="false" label="prop1Valor" />
+            		
+					<h:outputLabel for="prop2Nome" value="Nome Propriedade2:" />
+					<p:inputText id="prop2Nome" value="#{cadastroComponenteView.propriedade2.nome}" required="false" label="prop2Nome" />
+
+            		<h:outputLabel/>
+            		<h:outputLabel/>
+            		
+            		<h:outputLabel for="prop2Label" value="Label Propriedade2:" />
+					<p:inputText id="prop2Label" value="#{cadastroComponenteView.propriedade2.label}" required="false" label="prop2Label" />
+            		
+            		<h:outputLabel/>
+            		<h:outputLabel/>
+            			
+					<h:outputLabel for="prop2Valor" value="Valor Propriedade2:" />
+            		<p:inputText id="prop2Valor" value="#{cadastroComponenteView.propriedade2.valor}" required="false" label="prop2Valor" /> -->
+            		
+            	
+ 				
+	            <f:facet name="footer">
+	            	<h:outputText id="erro" value="#{cadastroComponenteView.erro}" />
+    	            <p:commandButton value="Salvar" update="growl" action="#{cadastroComponenteView.salvar}"/>
+    	            <p:commandButton value="Cancelar" update="growl" action="#{cadastroComponenteView.cancelar}"/>
+        	    </f:facet>  
+        	</h:panelGrid>
+</h:form>
+			</div>
+		</div>	
+</ui:define>    
+<!-- end -->
+    <ui:define name="title">        
+            Bem-vindo ao FargWeb        
+    </ui:define>
+</ui:composition>
+</html>

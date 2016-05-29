@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+  
+<ui:composition template="template/template_initial.xhtml">
+    <ui:define name="nav_bar">
+        <ui:include src="template/top_bar.xhtml"/>
+    </ui:define>
+
+	<ui:define name="menu_bar">
+        <ui:include src="template/menu_bar.xhtml"/>
+    </ui:define>    
+
+<!-- begin -->    
+<ui:define name="container">
+      	<div class="container-fluid">
+       		<div class="row">
+<h:form>
+			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+			<h:panelGrid columns="2" cellpadding="5">
+            	<h:outputLabel for="nomeGrupo" value="Nome do Grupo:" />
+            	<p:inputText id="nomeGrupo" value="#{cadastroGrupoComponenteView.descricao}" required="true" label="nomeGrupo" />
+ 				
+ 				<h:outputText id="erro" value="#{cadastroGrupoComponenteView.erro}" />
+ 				
+	            <f:facet name="footer">
+    	            <p:commandButton value="Salvar" update="growl" action="#{cadastroGrupoComponenteView.salvar}"/>
+    	            <p:commandButton value="Cancelar" update="growl" action="#{cadastroGrupoComponenteView.cancelar}"/>
+        	    </f:facet>  
+        	</h:panelGrid>
+</h:form>
+			</div>
+		</div>	
+</ui:define>    
+<!-- end -->
+    <ui:define name="title">        
+            Bem-vindo ao FargWeb        
+    </ui:define>
+</ui:composition>
+</html>
